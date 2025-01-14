@@ -1,0 +1,20 @@
+apiVersion: v1
+clusters:
+- cluster:
+    certificate-authority-data:
+    server: https://127.0.0.1:39303
+  name: uat-cluster
+contexts:
+- context:
+    cluster: uat-cluster
+    namespace: uat
+    user: tushar
+  name: uat-tushar
+current-context: uat-tushar
+kind: Config
+preferences: {}
+users:
+- name: tushar
+  user:
+    client-certificate: /home/tushar/tushar.crt
+    client-key: /home/tushar/tushar.key
