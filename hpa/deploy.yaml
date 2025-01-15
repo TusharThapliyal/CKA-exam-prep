@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: multi-container-app
+  namespace: uat
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: multi-container-app
+  template:
+    metadata:
+      labels:
+        app: multi-container-app
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key:  role
+                    operator: In
+                    values:  
+                      - worker-2
+      containers:
+        - name: app
+          image: tusharthapliyal/flask-api:2
+          ports:
+            - containerPort: 5000
+          resources:
+            requests: 
+              cpu: "100m"
+            limits:
+              cpu: "500m"
+
+        - name: nginx
+          image: nginx
+          ports:
+            - containerPort: 80
+          resources:
+            requests: 
+              cpu: "100m"
+            limits:
+              cpu: "500m"
