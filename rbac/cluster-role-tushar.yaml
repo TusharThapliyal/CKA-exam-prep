@@ -4,6 +4,6 @@ metadata:
   name: get-pod-in-uat-namespace
 rules:
 - apiGroups: [""]                
-  resources: ["pods"]                
+  resources: ["pods","namespace"]                
   verbs: ["get","list","watch","create","delete"]                   
 
