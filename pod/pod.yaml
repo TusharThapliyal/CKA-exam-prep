@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: hello-pod
+  labels:
+    env: uat
+  namespace: uat
+spec:
+  containers:
+    - name: hello-ctr
+      image: nigelpoulton/k8sbook:1.0
+      ports:
+        - containerPort: 8080
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: svc-for-hello-pod
+  namespace: uat
+  labels:
+    env: uat
+spec:
+  type: NodePort
+  selector:
+    env: uat
+  ports:
+    - targetPort: 8080 #the port on the target container
+      port: 80
+      nodePort: 30001
